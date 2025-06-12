@@ -3,7 +3,7 @@
 ![MOBA Game](https://img.icons8.com/color/96/000000/controller.png)
 
 Una herramienta estratégica para planificar el equipamiento de héroes tanque en juegos MOBA como [Mobile Legends: Bang Bang.]
-(https://skrillg.over-blog.com/2019/03/equipamiento.html)
+(https://www.ligadegamers.com/objetos-mobile-legends-builds/)
 ## Características principales
 
 - ✔ **Base de datos de items**: Lista completa de items específicos para tanques
