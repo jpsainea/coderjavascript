@@ -40,4 +40,4 @@ Una herramienta estratégica para planificar el equipamiento de héroes tanque e
 ## Web online
 
 Prueba la calculadora en: https://jpsainea.github.io/coderjavascript/
-- **NOTA:** Refresque la pagina con el la herramienta de desarrollador abierta para iteractual con la app
+- **NOTA:** Refresque la pagina con la herramienta de desarrollador abierta para iteractual con la app
