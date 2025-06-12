@@ -2,8 +2,8 @@
 
 ![MOBA Game](https://img.icons8.com/color/96/000000/controller.png)
 
-Una herramienta estratégica para planificar el equipamiento de héroes tanque en juegos MOBA como Mobile Legends: Bang Bang.
-
+Una herramienta estratégica para planificar el equipamiento de héroes tanque en juegos MOBA como [Mobile Legends: Bang Bang.]
+(https://skrillg.over-blog.com/2019/03/equipamiento.html)
 ## Características principales
 
 ✔ **Base de datos de items**: Lista completa de items específicos para tanques
@@ -30,7 +30,7 @@ Una herramienta estratégica para planificar el equipamiento de héroes tanque e
    - Selecciona la pestaña "Console"
 
 3. **Interactúa con el sistema**:
-=== OPCIONES ===
+### === OPCIONES ===
 - Agregar item
 - Eliminar item
 - Ver equipamiento actual
