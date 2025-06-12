@@ -6,9 +6,9 @@ Una herramienta estratégica para planificar el equipamiento de héroes tanque e
 (https://skrillg.over-blog.com/2019/03/equipamiento.html)
 ## Características principales
 
-✔ **Base de datos de items**: Lista completa de items específicos para tanques
-✔ **Equipamiento personalizado**: Combina hasta 5 items según tu estrategia
-✔ **Estadísticas en tiempo real**: Muestra automáticamente:
+- ✔ **Base de datos de items**: Lista completa de items específicos para tanques
+- ✔ **Equipamiento personalizado**: Combina hasta 5 items según tu estrategia
+- ✔ **Estadísticas en tiempo real**: Muestra automáticamente:
    - HP total acumulado
    - Armadura física total
    - Resistencia mágica total
@@ -36,3 +36,7 @@ Una herramienta estratégica para planificar el equipamiento de héroes tanque e
 - Ver equipamiento actual
 - Reiniciar equipamiento
 - Salir
+
+## Web online
+
+Prueba la calculadora en: https://jpsainea.github.io/coderjavascript/
