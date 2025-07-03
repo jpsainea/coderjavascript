@@ -1,0 +1,57 @@
+.theme_fonts {
+  font-family: "Nova Flat", system-ui;
+  color: #F0F4EF;
+}
+
+h1 {
+  font-family: "Nova Flat", system-ui;
+  color: #F0F4EF;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+}
+
+h3, h4, li, p {
+  color: #F0F4EF;
+}
+
+header {
+  background-color: #0F2546;
+}
+
+main {
+  background-image: url("../assets/backgroundMain.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: #333;
+}
+
+nav {
+  font-family: "Nova Flat", system-ui;
+  color: #F0F4EF;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+a {
+  text-decoration: none;
+}
+a:hover {
+  font-weight: 600;
+}
+
+.text-3d {
+  color: white;
+  text-shadow: 1px 1px 0 #999, 2px 2px 0 #888, 3px 3px 0 #777, 4px 4px 0 #666, 5px 5px 0 #555, 6px 6px 0 #444, 7px 7px 0 #333, 8px 8px 0 #222, 9px 9px 10px rgba(0, 0, 0, 0.6);
+}
+
+.img-button {
+  -webkit-text-stroke: 0.2px black;
+  text-stroke: 0.2px black;
+  font-size: 25px;
+  background-image: url("../assets/bg_button_img.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/*# sourceMappingURL=style.css.map */
