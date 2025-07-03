@@ -36,6 +36,10 @@ a {
 }
 
 
+h1, h2, h3, li {
+  color: variables.$dark-text;
+}
+
 .stat-item {
   background-color: variables.$stat-bg;
   padding: 10px;

@@ -74,6 +74,10 @@ a:hover {
   background-size: cover;
 }
 
+h1, h2, h3, li {
+  color: #2c3e50;
+}
+
 .stat-item {
   background-color: #e8f4f8;
   padding: 10px;
