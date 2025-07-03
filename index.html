@@ -4,7 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora de Equipamiento MOBA - Rol Tanque</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/x-icon" href="../assets/logo.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- tipografias -->
+    <link href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Nova+Flat&family=Tektur:wght@400..900&display=swap" rel="stylesheet">
+    <!-- estilos de bootstrap  -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <header>
@@ -13,7 +20,7 @@
 
     <main>
         <section id="explicacion">
-            <h2>Explicación del Proyecto</h2>
+            <h3>Explicación del Proyecto</h3>
             <p>Esta calculadora permite planificar estratégicamente el equipamiento de un héroe con rol de tanque en juegos MOBA como Mobile Legends: Bang Bang.</p>
 <a href="https://www.ligadegamers.com/objetos-mobile-legends-builds/" target="_blank">Funcionamiento de los equipamientos</a>
 
@@ -36,34 +43,27 @@
                 </ul>
             </div>
 
-            <div class="how-it-works">
-                <h3>¿Cómo funciona? (Modo Consola)</h3>
-                <ol>
-                    <li><strong>Abre las herramientas de desarrollador</strong> (F12 o clic derecho → Inspeccionar)</li>
-                    <li><strong>Ve a la pestaña "Consola"</strong></li>
-                    <li><strong>Menú principal:</strong> Verás las opciones disponibles numeradas del 1 al 5</li>
-                    <li><strong>Interacción:</strong> Escribe directamente el número de la opción deseada y presiona Enter</li>
-                    <li><strong>Navegación:</strong> Usa '0' para volver al menú principal desde cualquier submenú</li>
-                </ol>
-                <div class="tip">
-                    <p>💡 <strong>Consejo:</strong> Experimenta con diferentes combinaciones de items para encontrar el equilibrio perfecto entre supervivencia y efectos especiales.</p>
-                    <p>⚠ <strong>Nota:</strong> Esta versión funciona exclusivamente a través de la consola de desarrollo del navegador.</p>
-                </div>
-            </div>
+            <div class="funcionamiento">
+              <h3>Funcionamiento</h2>
+                        <p>Pulse el Boton para ir a la pagina de implementación:</p>
+          <!-- boton -->
+          <section class="container">
+            <div class="row m-4 d-flex flex-column flex-md-row align-items-center justify-content-center">
+               <div class="col text-center d-flex justify-content-center">
+                  <a class="btn btn-lg img-button theme_fonts " href="./pages/equipament.html">Simulador</a>
+               </div>
+           </div>
+          </section>
+
+           </div>
         </section>
 
-        <section id="consola-interactiva" style="display: none;">
-            <!-- Esta sección está oculta en esta versión -->
-            <div id="consola"></div>
-            <input type="text" id="input">
-        </section>
-    </main>
+   </main>
 
-    <footer>
+
+    <footer class="text-center bg-dark theme_fonts">
         <p>© 2025 Calculadora de Equipamiento MOBA | Desarrollado para jugadores estratégicos</p>
     </footer>
-
-    <script src="script.js" defer></script>
 
 </body>
 </html>
