@@ -19,25 +19,5 @@ Una herramienta estratégica para planificar el equipamiento de héroes tanque e
    - Añade/elimina items individualmente
    - Reinicia todo el equipamiento con un solo comando
 
-## Cómo usar (Modo Consola)
-
-1. **Abre las herramientas de desarrollador**:
-   - Windows/Linux: `F12` o `Ctrl+Shift+I`
-   - Mac: `Cmd+Opt+I`
-   - También puedes hacer clic derecho → "Inspeccionar"
-
-2. **Accede a la consola**:
-   - Selecciona la pestaña "Console"
-
-3. **Interactúa con el sistema**:
-### === OPCIONES ===
-- Agregar item
-- Eliminar item
-- Ver equipamiento actual
-- Reiniciar equipamiento
-- Salir
-
 ## Web online
-
 Prueba la calculadora en: https://jpsainea.github.io/coderjavascript/
-- **NOTA:** Refresque la pagina con la herramienta de desarrollador abierta para iteractual con la app
