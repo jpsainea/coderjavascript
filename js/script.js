@@ -2,6 +2,7 @@
 const itemsTanque = [
     {
         nombre: "Cursed Helmet",
+        imagen: "../assets/cursed_helmet.png",
         hp: 1200,
         armadura: 0,
         resMagica: 25,
@@ -10,6 +11,7 @@ const itemsTanque = [
     },
     {
         nombre: "Athena's Shield",
+        imagen: "../assets/athenea_shield.jpg",
         hp: 900,
         armadura: 0,
         resMagica: 62,
@@ -18,6 +20,7 @@ const itemsTanque = [
     },
     {
         nombre: "Antique Cuirass",
+        imagen: "../assets/antique_cuirass.png",
         hp: 1220,
         armadura: 54,
         resMagica: 0,
@@ -26,6 +29,7 @@ const itemsTanque = [
     },
     {
         nombre: "Blade Armor",
+        imagen: "../assets/blade_armon.png",
         hp: 0,
         armadura: 90,
         resMagica: 0,
@@ -34,6 +38,7 @@ const itemsTanque = [
     },
     {
         nombre: "Dominance Ice",
+        imagen: "../assets/dominance_ice.png",
         hp: 700,
         armadura: 70,
         resMagica: 0,
@@ -42,6 +47,7 @@ const itemsTanque = [
     },
     {
         nombre: "Immortality",
+        imagen: "../assets/immortality.png",
         hp: 800,
         armadura: 40,
         resMagica: 0,
@@ -50,6 +56,7 @@ const itemsTanque = [
     },
     {
         nombre: "Brute Force Breastplate",
+        imagen: "../assets/brute_force_breastplate.png",
         hp: 770,
         armadura: 45,
         resMagica: 45,
@@ -130,7 +137,18 @@ function actualizarEquipamientoUI() {
         const li = document.createElement('li');
         li.className = 'equipment-item';
 
+        const itemImage = document.createElement('img');
+        itemImage.className = 'equipment-image';
+        itemImage.src = item.imagen;
+        itemImage.alt = item.nombre;
+
+        const itemContainer = document.createElement('div');
+        itemContainer.style.display = 'flex';
+        itemContainer.style.alignItems = 'center';
+        itemContainer.style.flex = '1';
+
         const itemInfo = document.createElement('div');
+        itemInfo.className = 'equipment-info';
         itemInfo.textContent = item.nombre;
 
         const removeBtn = document.createElement('button');
@@ -138,7 +156,9 @@ function actualizarEquipamientoUI() {
         removeBtn.textContent = 'Eliminar';
         removeBtn.addEventListener('click', () => eliminarItem(index));
 
-        li.appendChild(itemInfo);
+        itemContainer.appendChild(itemImage);
+        itemContainer.appendChild(itemInfo);
+        li.appendChild(itemContainer);
         li.appendChild(removeBtn);
         equipmentListElement.appendChild(li);
     });
@@ -153,6 +173,14 @@ function mostrarItemsDisponibles() {
         itemCard.className = 'item-card';
         itemCard.addEventListener('click', () => agregarItem(index));
 
+        const itemImage = document.createElement('img');
+        itemImage.className = 'item-image';
+        itemImage.src = item.imagen;
+        itemImage.alt = item.nombre;
+
+        const itemInfo = document.createElement('div');
+        itemInfo.className = 'item-info';
+
         const itemName = document.createElement('div');
         itemName.className = 'item-name';
         itemName.textContent = item.nombre;
@@ -165,16 +193,19 @@ function mostrarItemsDisponibles() {
         itemEffect.className = 'item-effect';
         itemEffect.textContent = `Efecto: ${item.efecto}`;
 
-        itemCard.appendChild(itemName);
-        itemCard.appendChild(itemStats);
-        itemCard.appendChild(itemEffect);
+        itemInfo.appendChild(itemName);
+        itemInfo.appendChild(itemStats);
+        itemInfo.appendChild(itemEffect);
+
+        itemCard.appendChild(itemImage);
+        itemCard.appendChild(itemInfo);
         itemListElement.appendChild(itemCard);
     });
 }
 
 // Función para mostrar el equipamiento actual con detalles
 function mostrarEquipamientoDetallado() {
-    currentEquipmentDetailsElement.innerHTML = '';
+   currentEquipmentDetailsElement.innerHTML = '';
 
     if (equipamiento.length === 0) {
         currentEquipmentDetailsElement.innerHTML = '<p>No hay items en el equipamiento.</p>';
@@ -184,6 +215,15 @@ function mostrarEquipamientoDetallado() {
     equipamiento.forEach(item => {
         const itemDiv = document.createElement('div');
         itemDiv.className = 'item-card';
+        itemDiv.style.display = 'flex';
+
+        const itemImage = document.createElement('img');
+        itemImage.className = 'item-image';
+        itemImage.src = item.imagen;
+        itemImage.alt = item.nombre;
+
+        const itemInfo = document.createElement('div');
+        itemInfo.className = 'item-info';
 
         const itemName = document.createElement('div');
         itemName.className = 'item-name';
@@ -197,9 +237,12 @@ function mostrarEquipamientoDetallado() {
         itemEffect.className = 'item-effect';
         itemEffect.textContent = `Efecto: ${item.efecto}`;
 
-        itemDiv.appendChild(itemName);
-        itemDiv.appendChild(itemStats);
-        itemDiv.appendChild(itemEffect);
+        itemInfo.appendChild(itemName);
+        itemInfo.appendChild(itemStats);
+        itemInfo.appendChild(itemEffect);
+
+        itemDiv.appendChild(itemImage);
+        itemDiv.appendChild(itemInfo);
         currentEquipmentDetailsElement.appendChild(itemDiv);
     });
 }

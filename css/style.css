@@ -74,7 +74,11 @@ a:hover {
   background-size: cover;
 }
 
-h1, h2, h3, li {
+.container_build h1, .container_build h2, .container_build h3, .container_build li {
+  color: #2c3e50;
+}
+
+.panel li {
   color: #2c3e50;
 }
 
