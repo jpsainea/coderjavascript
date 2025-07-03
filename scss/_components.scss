@@ -1,0 +1,36 @@
+@use 'variables';
+
+// Estilos para enlaces
+a {
+  text-decoration: none;
+
+  &:hover {
+    font-weight: variables.$font-weight-bold;
+  }
+}
+
+// Efecto 3D en tipografía
+.text-3d {
+  color: white;
+  text-shadow:
+    1px 1px 0 #999,
+    2px 2px 0 #888,
+    3px 3px 0 #777,
+    4px 4px 0 #666,
+    5px 5px 0 #555,
+    6px 6px 0 #444,
+    7px 7px 0 #333,
+    8px 8px 0 #222,
+    9px 9px 10px rgba(0, 0, 0, 0.6);
+}
+
+// Estilos para botones con imagen
+.img-button {
+  -webkit-text-stroke: 0.2px black; // Para navegadores WebKit (Chrome, Safari)
+  text-stroke: 0.2px black; // Propiedad estándar
+  font-size: 25px;
+  background-image: url('../assets/bg_button_img.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
