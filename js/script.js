@@ -65,120 +65,175 @@ let totalArmadura = 0;
 let totalResMagica = 0;
 let precioTotal = 0;
 let efectosUnicos = [];
-let estadoActual = 'menu';
 
-// Función para imprimir en la consola
-function imprimir(texto) {
-    console.log(texto);
+// Elementos del DOM
+const totalHPElement = document.getElementById('totalHP');
+const totalArmaduraElement = document.getElementById('totalArmadura');
+const totalResMagicaElement = document.getElementById('totalResMagica');
+const precioTotalElement = document.getElementById('precioTotal');
+const equipamientoCountElement = document.getElementById('equipamientoCount');
+const equipmentListElement = document.getElementById('equipmentList');
+const effectsListElement = document.getElementById('effectsList');
+const itemListElement = document.getElementById('itemList');
+const currentEquipmentDetailsElement = document.getElementById('currentEquipmentDetails');
+const addItemBtn = document.getElementById('addItemBtn');
+const viewEquipmentBtn = document.getElementById('viewEquipmentBtn');
+const resetBtn = document.getElementById('resetBtn');
+const addItemTab = document.getElementById('addItemTab');
+const viewEquipmentTab = document.getElementById('viewEquipmentTab');
+const notificationElement = document.getElementById('notification');
+
+// Función para mostrar notificación
+function showNotification(message, isSuccess = true) {
+    notificationElement.textContent = message;
+    notificationElement.style.backgroundColor = isSuccess ? '#2ecc71' : '#e74c3c';
+    notificationElement.style.display = 'block';
+
+    setTimeout(() => {
+        notificationElement.style.display = 'none';
+    }, 3000);
 }
 
-// Función para limpiar la consola
-function limpiarConsola() {
-    console.clear();
+// Función para actualizar las estadísticas en la UI
+function actualizarEstadisticasUI() {
+    totalHPElement.textContent = totalHP;
+    totalArmaduraElement.textContent = totalArmadura;
+    totalResMagicaElement.textContent = totalResMagica;
+    precioTotalElement.textContent = `${precioTotal} oro`;
+    equipamientoCountElement.textContent = equipamiento.length;
 }
 
-// Función para mostrar el menú principal
-function mostrarMenu() {
-    limpiarConsola();
-    imprimir("=== CALCULADORA DE EQUIPAMIENTO TANQUE (MLBB) ===");
-    imprimir(`Items equipados: ${equipamiento.length}/5\n`);
-
-    imprimir("=== ESTADÍSTICAS TOTALES ===");
-    imprimir(`HP: ${totalHP}`);
-    imprimir(`Armadura Física: ${totalArmadura}`);
-    imprimir(`Resistencia Mágica: ${totalResMagica}`);
-    imprimir(`Precio total: ${precioTotal} oro\n`);
-
-    if (efectosUnicos.length > 0) {
-        imprimir("=== EFECTOS ÚNICOS ===");
-        efectosUnicos.forEach(efecto => imprimir(`• ${efecto}`));
-        imprimir("");
-    }
-
-    imprimir("=== OPCIONES ===");
-    imprimir("1. Agregar item");
-    imprimir("2. Eliminar item");
-    imprimir("3. Ver equipamiento actual");
-    imprimir("4. Reiniciar equipamiento");
-    imprimir("5. Salir");
-
-    solicitarInput();
-}
-
-// Función para mostrar la lista de items
-function mostrarItems() {
-    limpiarConsola();
-    imprimir("=== ITEMS DISPONIBLES ===");
-    itemsTanque.forEach((item, index) => {
-        imprimir(`${index + 1}. ${item.nombre}`);
-        imprimir(`   HP: ${item.hp} | Armadura: ${item.armadura} | Resistencia Mágica: ${item.resMagica} | Precio: ${item.precio}`);
-        imprimir(`   Efecto: ${item.efecto}\n`);
-    });
-    imprimir("0. Volver al menú principal");
-    solicitarInput();
-}
-
-// Función para mostrar el equipamiento actual
-function mostrarEquipamiento() {
-    limpiarConsola();
-    if (equipamiento.length === 0) {
-        imprimir("No hay items en el equipamiento.");
-    } else {
-        imprimir("=== EQUIPAMIENTO ACTUAL ===");
-        equipamiento.forEach((item, index) => {
-            imprimir(`${index + 1}. ${item.nombre}`);
-            imprimir(`   HP: ${item.hp} | Armadura: ${item.armadura} | Resistencia Mágica: ${item.resMagica} | Precio: ${item.precio}`);
-            imprimir(`   Efecto: ${item.efecto}\n`);
-        });
-    }
-    imprimir("\n0. Volver al menú principal");
-    solicitarInput();
-}
-
-// Función para eliminar un item
-function eliminarItem() {
-    limpiarConsola();
-    if (equipamiento.length === 0) {
-        imprimir("No hay items para eliminar.");
-        setTimeout(() => {
-            estadoActual = 'menu';
-            mostrarMenu();
-        }, 1500);
+// Función para actualizar la lista de efectos únicos
+function actualizarEfectosUnicosUI() {
+    effectsListElement.innerHTML = '';
+    if (efectosUnicos.length === 0) {
+        effectsListElement.innerHTML = '<li>No hay efectos únicos activos</li>';
         return;
     }
 
-    imprimir("=== ELIMINAR ITEM ===");
-    equipamiento.forEach((item, index) => {
-        imprimir(`${index + 1}. ${item.nombre}`);
+    efectosUnicos.forEach(efecto => {
+        const li = document.createElement('li');
+        li.textContent = `${efecto}`;
+        effectsListElement.appendChild(li);
     });
-    imprimir("0. Volver al menú principal");
-    imprimir("\nIngresa el número del item que deseas eliminar:");
+}
 
-    const input = prompt("Ingresa tu elección:");
-    if (input !== null) {
-        if (input === '0') {
-            estadoActual = 'menu';
-            mostrarMenu();
-            return;
-        }
-
-        const num = parseInt(input);
-        if (!isNaN(num) && num >= 1 && num <= equipamiento.length) {
-            const itemEliminado = equipamiento.splice(num - 1, 1)[0];
-            actualizarEstadisticas(itemEliminado, 'restar');
-            efectosUnicos = efectosUnicos.filter(efecto => !efecto.startsWith(itemEliminado.nombre));
-            imprimir(`¡${itemEliminado.nombre} eliminado!`);
-            setTimeout(() => {
-                estadoActual = 'menu';
-                //mostrarMenu();
-            eliminarItem();
-
-            }, 1500);
-        } else {
-            alert("Número inválido");
-            eliminarItem();
-        }
+// Función para actualizar la lista de equipamiento
+function actualizarEquipamientoUI() {
+    equipmentListElement.innerHTML = '';
+    if (equipamiento.length === 0) {
+        equipmentListElement.innerHTML = '<li>No hay items equipados</li>';
+        return;
     }
+
+    equipamiento.forEach((item, index) => {
+        const li = document.createElement('li');
+        li.className = 'equipment-item';
+
+        const itemInfo = document.createElement('div');
+        itemInfo.textContent = item.nombre;
+
+        const removeBtn = document.createElement('button');
+        removeBtn.className = 'remove-btn';
+        removeBtn.textContent = 'Eliminar';
+        removeBtn.addEventListener('click', () => eliminarItem(index));
+
+        li.appendChild(itemInfo);
+        li.appendChild(removeBtn);
+        equipmentListElement.appendChild(li);
+    });
+}
+
+// Función para mostrar los items disponibles
+function mostrarItemsDisponibles() {
+    itemListElement.innerHTML = '';
+
+    itemsTanque.forEach((item, index) => {
+        const itemCard = document.createElement('div');
+        itemCard.className = 'item-card';
+        itemCard.addEventListener('click', () => agregarItem(index));
+
+        const itemName = document.createElement('div');
+        itemName.className = 'item-name';
+        itemName.textContent = item.nombre;
+
+        const itemStats = document.createElement('div');
+        itemStats.className = 'item-stats';
+        itemStats.textContent = `HP: ${item.hp} | Armadura: ${item.armadura} | Resistencia Mágica: ${item.resMagica} | Precio: ${item.precio}`;
+
+        const itemEffect = document.createElement('div');
+        itemEffect.className = 'item-effect';
+        itemEffect.textContent = `Efecto: ${item.efecto}`;
+
+        itemCard.appendChild(itemName);
+        itemCard.appendChild(itemStats);
+        itemCard.appendChild(itemEffect);
+        itemListElement.appendChild(itemCard);
+    });
+}
+
+// Función para mostrar el equipamiento actual con detalles
+function mostrarEquipamientoDetallado() {
+    currentEquipmentDetailsElement.innerHTML = '';
+
+    if (equipamiento.length === 0) {
+        currentEquipmentDetailsElement.innerHTML = '<p>No hay items en el equipamiento.</p>';
+        return;
+    }
+
+    equipamiento.forEach(item => {
+        const itemDiv = document.createElement('div');
+        itemDiv.className = 'item-card';
+
+        const itemName = document.createElement('div');
+        itemName.className = 'item-name';
+        itemName.textContent = item.nombre;
+
+        const itemStats = document.createElement('div');
+        itemStats.className = 'item-stats';
+        itemStats.textContent = `HP: ${item.hp} | Armadura: ${item.armadura} | Resistencia Mágica: ${item.resMagica} | Precio: ${item.precio}`;
+
+        const itemEffect = document.createElement('div');
+        itemEffect.className = 'item-effect';
+        itemEffect.textContent = `Efecto: ${item.efecto}`;
+
+        itemDiv.appendChild(itemName);
+        itemDiv.appendChild(itemStats);
+        itemDiv.appendChild(itemEffect);
+        currentEquipmentDetailsElement.appendChild(itemDiv);
+    });
+}
+
+// Función para agregar un item al equipamiento
+function agregarItem(index) {
+    if (equipamiento.length >= 5) {
+        showNotification("¡Máximo de 5 items alcanzado!", false);
+        return;
+    }
+
+    const item = itemsTanque[index];
+    equipamiento.push(item);
+    actualizarEstadisticas(item, 'sumar');
+    efectosUnicos.push(`${item.nombre}: ${item.efecto}`);
+
+    actualizarEquipamientoUI();
+    actualizarEstadisticasUI();
+    actualizarEfectosUnicosUI();
+
+    showNotification(`¡${item.nombre} agregado!`);
+}
+
+// Función para eliminar un item del equipamiento
+function eliminarItem(index) {
+    const itemEliminado = equipamiento.splice(index, 1)[0];
+    actualizarEstadisticas(itemEliminado, 'restar');
+    efectosUnicos = efectosUnicos.filter(efecto => !efecto.startsWith(itemEliminado.nombre));
+
+    actualizarEquipamientoUI();
+    actualizarEstadisticasUI();
+    actualizarEfectosUnicosUI();
+
+    showNotification(`¡${itemEliminado.nombre} eliminado!`);
 }
 
 // Función para reiniciar el equipamiento
@@ -189,93 +244,12 @@ function reiniciarEquipamiento() {
     totalResMagica = 0;
     precioTotal = 0;
     efectosUnicos = [];
-    imprimir("Equipamiento reiniciado.");
-    setTimeout(() => {
-        estadoActual = 'menu';
-        mostrarMenu();
-    }, 1500);
-}
 
-// Función para solicitar entrada del usuario
-function solicitarInput() {
-    const input = prompt("Ingresa el número de opción:");
-    if (input !== null) {
-        manejarComando(input);
-    }
-}
+    actualizarEquipamientoUI();
+    actualizarEstadisticasUI();
+    actualizarEfectosUnicosUI();
 
-// Función principal para manejar comandos
-function manejarComando(comando) {
-    comando = comando.trim();
-
-    switch (estadoActual) {
-        case 'menu':
-            switch (comando) {
-                case '1':
-                    estadoActual = 'agregar';
-                    mostrarItems();
-                    break;
-                case '2':
-                    estadoActual = 'eliminar';
-                    eliminarItem();
-                    break;
-                case '3':
-                    estadoActual = 'ver-equipamiento';
-                    mostrarEquipamiento();
-                    break;
-                case '4':
-                    reiniciarEquipamiento();
-                    break;
-                case '5':
-                    imprimir("¡Gracias por usar la calculadora!");
-                    return;
-                default:
-                    alert("Opción no válida");
-                    mostrarMenu();
-            }
-            break;
-
-        case 'agregar':
-            if (comando === '0') {
-                estadoActual = 'menu';
-                mostrarMenu();
-            } else {
-                const num = parseInt(comando);
-                if (!isNaN(num) && num >= 1 && num <= itemsTanque.length) {
-                    if (equipamiento.length >= 5) {
-                        alert("¡Máximo de 5 items alcanzado!");
-                        mostrarMenu();
-                        return;
-                    }
-
-                    const item = itemsTanque[num - 1];
-                    equipamiento.push(item);
-                    actualizarEstadisticas(item, 'sumar');
-                    efectosUnicos.push(`${item.nombre}: ${item.efecto}`);
-                    alert(`¡${item.nombre} agregado!`);
-                    //mostrarMenu();
-                    mostrarItems();
-                } else {
-                    alert("Número inválido");
-                    mostrarItems();
-                }
-            }
-            break;
-
-        case 'ver-equipamiento':
-            if (comando === '0') {
-                estadoActual = 'menu';
-                mostrarMenu();
-            } else {
-                alert("Opción no válida");
-                mostrarEquipamiento();
-            }
-            break;
-
-        default:
-            estadoActual = 'menu';
-            mostrarMenu();
-    }
+    showNotification("Equipamiento reiniciado.");
 }
 
 // Función para actualizar estadísticas
@@ -287,10 +261,33 @@ function actualizarEstadisticas(item, operacion) {
     precioTotal += item.precio * factor;
 }
 
-// Iniciar la aplicación
-console.log("=== INSTRUCCIONES ===");
-console.log("1. Usa los números para navegar");
-console.log("2. Los prompts aparecerán para entrada");
-console.log("3. Usa '0' para volver al menú\n");
+// Event Listeners
+addItemBtn.addEventListener('click', () => {
+    addItemTab.classList.add('active');
+    viewEquipmentTab.classList.remove('active');
+    addItemBtn.classList.add('active-tab');
+    viewEquipmentBtn.classList.remove('active-tab');
+    mostrarItemsDisponibles();
+});
 
-mostrarMenu();
+viewEquipmentBtn.addEventListener('click', () => {
+    viewEquipmentTab.classList.add('active');
+    addItemTab.classList.remove('active');
+    viewEquipmentBtn.classList.add('active-tab');
+    addItemBtn.classList.remove('active-tab');
+    mostrarEquipamientoDetallado();
+});
+
+resetBtn.addEventListener('click', reiniciarEquipamiento);
+
+// Inicialización
+function init() {
+    actualizarEstadisticasUI();
+    actualizarEquipamientoUI();
+    actualizarEfectosUnicosUI();
+    mostrarItemsDisponibles();
+    mostrarEquipamientoDetallado();
+}
+
+// Iniciar la aplicación
+init();

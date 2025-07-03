@@ -142,6 +142,85 @@ Construir un equipamiento efectivo requiere una estrategia adaptada al rol del h
           <!--    </div> -->
           <!-- </div> -->
           <!---->
+
+
+
+
+    <div class="container">
+        <div class="panel">
+            <h2>Estadísticas</h2>
+            <div class="stats">
+                <div class="stat-item">
+                    <div>HP Total:</div>
+                    <div class="stat-value" id="totalHP">0</div>
+                </div>
+                <div class="stat-item">
+                    <div>Armadura Física:</div>
+                    <div class="stat-value" id="totalArmadura">0</div>
+                </div>
+                <div class="stat-item">
+                    <div>Resistencia Mágica:</div>
+                    <div class="stat-value" id="totalResMagica">0</div>
+                </div>
+                <div class="stat-item">
+                    <div>Precio Total:</div>
+                    <div class="stat-value" id="precioTotal">0 oro</div>
+                </div>
+            </div>
+
+            <h3>Items Equipados: <span id="equipamientoCount">0</span>/5</h3>
+            <ul class="equipment-list" id="equipmentList">
+                <!-- Los items equipados aparecerán aquí -->
+            </ul>
+
+            <div>
+                <button id="resetBtn" class="btn btn-danger">Reiniciar Equipamiento</button>
+            </div>
+        </div>
+
+        <div class="panel">
+            <h2>Opciones</h2>
+            <div>
+                <button id="addItemBtn" class="btn active-tab">Agregar Item</button>
+                <button id="viewEquipmentBtn" class="btn">Ver Equipamiento</button>
+            </div>
+
+            <div id="addItemTab" class="tab-content active">
+                <h3>Items Disponibles</h3>
+                <div class="item-list" id="itemList">
+                    <!-- Los items disponibles aparecerán aquí -->
+                </div>
+            </div>
+
+            <div id="viewEquipmentTab" class="tab-content">
+                <h3>Equipamiento Actual</h3>
+                <div id="currentEquipmentDetails">
+                    <!-- Detalles del equipamiento aparecerán aquí -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel">
+        <h2>Efectos Únicos</h2>
+        <ul class="effects-list" id="effectsList">
+            <!-- Los efectos únicos aparecerán aquí -->
+        </ul>
+    </div>
+
+    <div class="notification" id="notification"></div>
+
+
+
+
+
+
+
+
+
+
+
+
          </section>
 
         </main>
@@ -185,3 +264,5 @@ Construir un equipamiento efectivo requiere una estrategia adaptada al rol del h
     <script src="../js/script.js" defer></script>
     </body>
 </html>
+
+
