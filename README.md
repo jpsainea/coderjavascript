@@ -19,5 +19,7 @@ Una herramienta estratégica para planificar el equipamiento de héroes tanque e
    - Añade/elimina items individualmente
    - Reinicia todo el equipamiento con un solo comando
 
+✔ **LocalStorage**:
+   - Se implementa LocalStorage para persistir la seleccion de items
 ## Web online
 Prueba la calculadora en: https://jpsainea.github.io/coderjavascript/

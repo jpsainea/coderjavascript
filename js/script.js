@@ -65,13 +65,13 @@ const itemsTanque = [
     }
 ];
 
-// Variables globales
-let equipamiento = [];
-let totalHP = 0;
-let totalArmadura = 0;
-let totalResMagica = 0;
-let precioTotal = 0;
-let efectosUnicos = [];
+// Variables globales inicializadas desde LocalStorage
+let equipamiento = JSON.parse(localStorage.getItem('equipamiento')) || [];
+let totalHP = parseInt(localStorage.getItem('totalHP')) || 0;
+let totalArmadura = parseInt(localStorage.getItem('totalArmadura')) || 0;
+let totalResMagica = parseInt(localStorage.getItem('totalResMagica')) || 0;
+let precioTotal = parseInt(localStorage.getItem('precioTotal')) || 0;
+let efectosUnicos = JSON.parse(localStorage.getItem('efectosUnicos')) || [];
 
 // Elementos del DOM
 const totalHPElement = document.getElementById('totalHP');
@@ -101,6 +101,34 @@ function showNotification(message, isSuccess = true) {
     }, 3000);
 }
 
+// Función para guardar el estado en LocalStorage
+function guardarEstado() {
+    localStorage.setItem('equipamiento', JSON.stringify(equipamiento));
+    localStorage.setItem('totalHP', totalHP.toString());
+    localStorage.setItem('totalArmadura', totalArmadura.toString());
+    localStorage.setItem('totalResMagica', totalResMagica.toString());
+    localStorage.setItem('precioTotal', precioTotal.toString());
+    localStorage.setItem('efectosUnicos', JSON.stringify(efectosUnicos));
+}
+
+// Función para cargar el estado desde LocalStorage
+function cargarEstado() {
+    const equipamientoGuardado = localStorage.getItem('equipamiento');
+    if (equipamientoGuardado) {
+        equipamiento = JSON.parse(equipamientoGuardado);
+    }
+
+    totalHP = parseInt(localStorage.getItem('totalHP')) || 0;
+    totalArmadura = parseInt(localStorage.getItem('totalArmadura')) || 0;
+    totalResMagica = parseInt(localStorage.getItem('totalResMagica')) || 0;
+    precioTotal = parseInt(localStorage.getItem('precioTotal')) || 0;
+
+    const efectosGuardados = localStorage.getItem('efectosUnicos');
+    if (efectosGuardados) {
+        efectosUnicos = JSON.parse(efectosGuardados);
+    }
+}
+
 // Función para actualizar las estadísticas en la UI
 function actualizarEstadisticasUI() {
     totalHPElement.textContent = totalHP;
@@ -108,6 +136,18 @@ function actualizarEstadisticasUI() {
     totalResMagicaElement.textContent = totalResMagica;
     precioTotalElement.textContent = `${precioTotal} oro`;
     equipamientoCountElement.textContent = equipamiento.length;
+}
+
+// Función para actualizar estadísticas y guardar estado
+function actualizarEstadisticas(item, operacion) {
+    const factor = operacion === 'sumar' ? 1 : -1;
+    totalHP += item.hp * factor;
+    totalArmadura += item.armadura * factor;
+    totalResMagica += item.resMagica * factor;
+    precioTotal += item.precio * factor;
+
+    guardarEstado();
+    actualizarEstadisticasUI();
 }
 
 // Función para actualizar la lista de efectos únicos
@@ -137,15 +177,15 @@ function actualizarEquipamientoUI() {
         const li = document.createElement('li');
         li.className = 'equipment-item';
 
-        const itemImage = document.createElement('img');
-        itemImage.className = 'equipment-image';
-        itemImage.src = item.imagen;
-        itemImage.alt = item.nombre;
-
         const itemContainer = document.createElement('div');
         itemContainer.style.display = 'flex';
         itemContainer.style.alignItems = 'center';
         itemContainer.style.flex = '1';
+
+        const itemImage = document.createElement('img');
+        itemImage.className = 'equipment-image';
+        itemImage.src = item.imagen;
+        itemImage.alt = item.nombre;
 
         const itemInfo = document.createElement('div');
         itemInfo.className = 'equipment-info';
@@ -154,7 +194,10 @@ function actualizarEquipamientoUI() {
         const removeBtn = document.createElement('button');
         removeBtn.className = 'remove-btn';
         removeBtn.textContent = 'Eliminar';
-        removeBtn.addEventListener('click', () => eliminarItem(index));
+        removeBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            eliminarItem(index);
+        });
 
         itemContainer.appendChild(itemImage);
         itemContainer.appendChild(itemInfo);
@@ -205,7 +248,7 @@ function mostrarItemsDisponibles() {
 
 // Función para mostrar el equipamiento actual con detalles
 function mostrarEquipamientoDetallado() {
-   currentEquipmentDetailsElement.innerHTML = '';
+    currentEquipmentDetailsElement.innerHTML = '';
 
     if (equipamiento.length === 0) {
         currentEquipmentDetailsElement.innerHTML = '<p>No hay items en el equipamiento.</p>';
@@ -264,19 +307,20 @@ function agregarItem(index) {
     actualizarEfectosUnicosUI();
 
     showNotification(`¡${item.nombre} agregado!`);
+    guardarEstado();
 }
 
 // Función para eliminar un item del equipamiento
 function eliminarItem(index) {
     const itemEliminado = equipamiento.splice(index, 1)[0];
-    actualizarEstadisticas(itemEliminado, 'restar');
     efectosUnicos = efectosUnicos.filter(efecto => !efecto.startsWith(itemEliminado.nombre));
 
+    actualizarEstadisticas(itemEliminado, 'restar');
     actualizarEquipamientoUI();
-    actualizarEstadisticasUI();
     actualizarEfectosUnicosUI();
 
     showNotification(`¡${itemEliminado.nombre} eliminado!`);
+    guardarEstado();
 }
 
 // Función para reiniciar el equipamiento
@@ -292,16 +336,15 @@ function reiniciarEquipamiento() {
     actualizarEstadisticasUI();
     actualizarEfectosUnicosUI();
 
-    showNotification("Equipamiento reiniciado.");
-}
+    // Limpiar LocalStorage
+    localStorage.removeItem('equipamiento');
+    localStorage.removeItem('totalHP');
+    localStorage.removeItem('totalArmadura');
+    localStorage.removeItem('totalResMagica');
+    localStorage.removeItem('precioTotal');
+    localStorage.removeItem('efectosUnicos');
 
-// Función para actualizar estadísticas
-function actualizarEstadisticas(item, operacion) {
-    const factor = operacion === 'sumar' ? 1 : -1;
-    totalHP += item.hp * factor;
-    totalArmadura += item.armadura * factor;
-    totalResMagica += item.resMagica * factor;
-    precioTotal += item.precio * factor;
+    showNotification("Equipamiento reiniciado.");
 }
 
 // Event Listeners
@@ -325,6 +368,7 @@ resetBtn.addEventListener('click', reiniciarEquipamiento);
 
 // Inicialización
 function init() {
+    cargarEstado();
     actualizarEstadisticasUI();
     actualizarEquipamientoUI();
     actualizarEfectosUnicosUI();
