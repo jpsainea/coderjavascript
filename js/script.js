@@ -2,7 +2,7 @@
 const itemsTanque = [
     {
         nombre: "Cursed Helmet",
-        imagen: "../assets/cursed_helmet.png",
+        imagen: "../assets/cursed_helmet.jpg",
         hp: 1200,
         armadura: 0,
         resMagica: 25,
@@ -20,7 +20,7 @@ const itemsTanque = [
     },
     {
         nombre: "Antique Cuirass",
-        imagen: "../assets/antique_cuirass.png",
+        imagen: "../assets/antique_cuirass.jpg",
         hp: 1220,
         armadura: 54,
         resMagica: 0,
@@ -29,7 +29,7 @@ const itemsTanque = [
     },
     {
         nombre: "Blade Armor",
-        imagen: "../assets/blade_armon.png",
+        imagen: "../assets/blade_armon.jpg",
         hp: 0,
         armadura: 90,
         resMagica: 0,
@@ -38,7 +38,7 @@ const itemsTanque = [
     },
     {
         nombre: "Dominance Ice",
-        imagen: "../assets/dominance_ice.png",
+        imagen: "../assets/dominance_ice.jpg",
         hp: 700,
         armadura: 70,
         resMagica: 0,
@@ -47,7 +47,7 @@ const itemsTanque = [
     },
     {
         nombre: "Immortality",
-        imagen: "../assets/immortality.png",
+        imagen: "../assets/immortality.jpg",
         hp: 800,
         armadura: 40,
         resMagica: 0,
@@ -56,7 +56,7 @@ const itemsTanque = [
     },
     {
         nombre: "Brute Force Breastplate",
-        imagen: "../assets/brute_force_breastplate.png",
+        imagen: "../assets/brute_force_breastplate.jpg",
         hp: 770,
         armadura: 45,
         resMagica: 45,
